@@ -6,9 +6,7 @@ export class API {
     this.http.defaults.baseURL = "https://reqres.in/api/";
   }
 
-  getUserList = () => {
-    return axios.get("users");
-  };
+  getUsersList = () => this.http.get("users");
 }
 
 export default new API();
