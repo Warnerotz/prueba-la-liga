@@ -1,5 +1,5 @@
 import axios from "axios";
-import api, { API } from "./api";
+import api from "./api";
 
 jest.mock("axios");
 
@@ -70,7 +70,7 @@ describe("API tests", () => {
       data: EXPECTED_DATA,
     });
 
-    expect(await api.getUserList()).toEqual({
+    expect(await api.getUsersList()).toEqual({
       data: EXPECTED_DATA,
     });
   });
