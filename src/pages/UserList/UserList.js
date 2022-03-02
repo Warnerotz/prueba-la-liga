@@ -13,12 +13,10 @@ function UserList({ getUsersList, usersListData, isLoading }) {
     getUsersList();
   }, [getUsersList]);
 
-  return isLoading ? (
+  return !usersListData ? (
     <div>cargando</div>
   ) : (
-    <UsersListDataTable
-      usersListData={usersListData ? usersListData.data : null}
-    />
+    <UsersListDataTable usersListData={usersListData.data} />
   );
 }
 
