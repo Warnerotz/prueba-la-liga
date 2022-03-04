@@ -99,7 +99,7 @@ describe("getUsersListSuccess( action", () => {
   });
 });
 
-describe("getTerminalListFailure( action", () => {
+describe("getUsersListFailure( action", () => {
   it("should be created", () => {
     const action = getUsersListFailure(MOCK_ERROR);
 

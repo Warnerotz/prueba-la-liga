@@ -1,5 +1,5 @@
 import { HeaderText } from "./usersListDataTable.styles";
-
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -19,6 +19,12 @@ let headers = [
 ];
 
 function UsersListDataTable({ usersListData }) {
+  const navigate = useNavigate();
+
+  function handleClick(userId) {
+    navigate(`/users/${userId}`);
+  }
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -40,7 +46,9 @@ function UsersListDataTable({ usersListData }) {
                   <TableCell>{last_name}</TableCell>
                   <TableCell>{email}</TableCell>
                   <TableCell>
-                    <Button variant="outlined">Modificar</Button>
+                    <Button variant="outlined" onClick={() => handleClick(id)}>
+                      Modificar
+                    </Button>
                   </TableCell>
                 </TableRow>
               )

@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import UsersListDataTable from "./usersListDataTable";
 
 describe("UserListDataTable", () => {
@@ -13,7 +14,11 @@ describe("UserListDataTable", () => {
   ];
 
   it("should render headers correctly", () => {
-    render(<UsersListDataTable usersListData={MOCK_DATA} />);
+    render(
+      <BrowserRouter>
+        <UsersListDataTable usersListData={MOCK_DATA} />
+      </BrowserRouter>
+    );
 
     expect(
       screen.getByTestId("user-list-headers-first-name")

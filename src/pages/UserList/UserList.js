@@ -8,7 +8,7 @@ import {
 import { getUsersList } from "../../store/usersList/usersList.actions";
 import UsersListDataTable from "../../components/usersListDataTable/usersListDataTable";
 
-function UserList({ getUsersList, usersListData, isLoading }) {
+function UserList({ getUsersList, usersListData }) {
   useEffect(() => {
     getUsersList();
   }, [getUsersList]);
