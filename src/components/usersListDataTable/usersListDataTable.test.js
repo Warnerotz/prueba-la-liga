@@ -34,7 +34,11 @@ describe("UserListDataTable", () => {
   });
 
   it("should render table body data correctly", () => {
-    render(<UsersListDataTable usersListData={MOCK_DATA} />);
+    render(
+      <BrowserRouter>
+        <UsersListDataTable usersListData={MOCK_DATA} />
+      </BrowserRouter>
+    );
 
     const expectedValue = screen.getByTestId(
       `user-list-data-${MOCK_DATA[0].id}`
