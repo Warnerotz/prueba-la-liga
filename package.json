@@ -25,8 +25,16 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "CI=true REACT_APP_VERSION=$npm_package_version react-scripts test --colors",
+    "eject": "react-scripts eject",
+    "test:watch": "REACT_APP_VERSION=$npm_package_version react-scripts test --colors --watch",
+    "test:coverage": "CI=true REACT_APP_VERSION=$npm_package_version react-scripts test --colors --coverage"
+
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test:coverage"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "husky": "^7.0.4",
     "redux-devtools-extension": "^2.13.9",
     "redux-mock-store": "^1.5.4"
   }
