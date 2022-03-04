@@ -1,4 +1,4 @@
-import api from "../../Api/Api";
+import api from "../../api/api";
 import UsersListTypes from "./usersList.types";
 
 export const getUsersListStart = () => ({

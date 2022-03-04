@@ -7,6 +7,7 @@ export class API {
   }
 
   getUsersList = () => this.http.get("users");
+  getUserDetail = (id) => this.http.get(`users/${id}`);
 }
 
 export default new API();
