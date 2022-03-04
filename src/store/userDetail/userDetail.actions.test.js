@@ -8,10 +8,20 @@ import {
   getUserDetailSuccess,
   getUserDetailFailure,
   getUserDetail,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
+  deleteUser,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+  updateUser,
 } from "./userDetail.actions";
 
 jest.mock("axios");
 const mockStore = configureMockStore([thunk]);
+
+const MOCK_ID = 1;
 
 const USER_DETAIL_MOCK = {
   id: 1,
@@ -77,11 +87,109 @@ describe("get user detail action", () => {
       },
     ];
 
-    const MOCK_ID = 1;
-
     mockedAxios.get.mockResolvedValueOnce({ data: { data: USER_DETAIL_MOCK } });
 
     await store.dispatch(getUserDetail(MOCK_ID));
+
+    const actualActions = await store.getActions();
+
+    expect(actualActions).toEqual(EXPECTED_ACTIONS);
+  });
+});
+
+describe("deleteUserStart  action", () => {
+  it("should be created", () => {
+    const action = deleteUserStart();
+    expect(action).toEqual({
+      type: UserDetailTypes.DELETE_USER_START,
+    });
+  });
+});
+
+describe("deleteUserSuccess action", () => {
+  it("should be created", () => {
+    const action = deleteUserSuccess();
+    expect(action).toEqual({
+      type: UserDetailTypes.DELETE_USER_SUCCESS,
+    });
+  });
+});
+
+describe("deleteUserFailure action", () => {
+  it("should be created", () => {
+    const action = deleteUserFailure(MOCK_ERROR);
+    expect(action).toEqual({
+      type: UserDetailTypes.DELETE_USER_FAILURE,
+      payload: MOCK_ERROR,
+    });
+  });
+});
+
+describe("delete user action", () => {
+  it("should dispatch suitable actions on delete user", async () => {
+    const EXPECTED_ACTIONS = [
+      { type: UserDetailTypes.DELETE_USER_START },
+      {
+        type: UserDetailTypes.DELETE_USER_SUCCESS,
+      },
+    ];
+
+    mockedAxios.delete.mockResolvedValueOnce();
+
+    await store.dispatch(deleteUser(MOCK_ID));
+
+    const actualActions = await store.getActions();
+
+    expect(actualActions).toEqual(EXPECTED_ACTIONS);
+  });
+});
+
+describe("updateUserStart  action", () => {
+  it("should be created", () => {
+    const action = updateUserStart();
+    expect(action).toEqual({
+      type: UserDetailTypes.UPDATE_USER_START,
+    });
+  });
+});
+
+describe("updateUserSuccess action", () => {
+  it("should be created", () => {
+    const action = updateUserSuccess();
+    expect(action).toEqual({
+      type: UserDetailTypes.UPDATE_USER_SUCCESS,
+    });
+  });
+});
+
+describe("updateUserFailure action", () => {
+  it("should be created", () => {
+    const action = updateUserFailure(MOCK_ERROR);
+    expect(action).toEqual({
+      type: UserDetailTypes.UPDATE_USER_FAILURE,
+      payload: MOCK_ERROR,
+    });
+  });
+});
+
+describe("update user action", () => {
+  it("should dispatch suitable actions on update user", async () => {
+    const EXPECTED_ACTIONS = [
+      { type: UserDetailTypes.UPDATE_USER_START },
+      {
+        type: UserDetailTypes.UPDATE_USER_SUCCESS,
+      },
+    ];
+
+    const USER_DATA_MOCK = {
+      first_name: "adrian",
+      last_name: "martinez",
+      email: "ad@hotmail.com",
+    };
+
+    mockedAxios.patch.mockResolvedValueOnce();
+
+    await store.dispatch(updateUser(MOCK_ID, USER_DATA_MOCK));
 
     const actualActions = await store.getActions();
 

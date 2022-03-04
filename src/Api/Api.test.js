@@ -5,6 +5,7 @@ jest.mock("axios");
 
 describe("API tests", () => {
   let mockedAxios;
+  const USER_ID_MOCK = 1;
 
   beforeEach(() => {
     mockedAxios = axios;
@@ -73,5 +74,48 @@ describe("API tests", () => {
     expect(await api.getUsersList()).toEqual({
       data: EXPECTED_DATA,
     });
+  });
+
+  it("should render the user detail data on getUserDetail", async () => {
+    const EXPECTED_DATA = {
+      data: {
+        id: 1,
+        email: "george.bluth@reqres.in",
+        first_name: "George",
+        last_name: "Bluth",
+        avatar: "https://reqres.in/img/faces/1-image.jpg",
+      },
+    };
+
+    mockedAxios.get.mockResolvedValueOnce({
+      data: EXPECTED_DATA,
+    });
+
+    expect(await api.getUserDetail()).toEqual({
+      data: EXPECTED_DATA,
+    });
+  });
+
+  it("should update user data at call updateUserData", async () => {
+    const USER_DATA_MOCK = {
+      first_name: "adrian",
+      last_name: "martinez",
+      email: "a@google.com",
+    };
+    const baseUrl = `users/${USER_ID_MOCK}`;
+
+    mockedAxios.patch.mockResolvedValueOnce({});
+
+    await api.updateUser(USER_ID_MOCK, USER_DATA_MOCK);
+
+    expect(mockedAxios.patch).toHaveBeenCalledWith(baseUrl, USER_DATA_MOCK);
+  });
+
+  it("should delete user when call delete user", async () => {
+    mockedAxios.patch.mockResolvedValueOnce({});
+
+    await api.deleteUser(USER_ID_MOCK);
+
+    expect(mockedAxios.delete).toHaveBeenCalled();
   });
 });

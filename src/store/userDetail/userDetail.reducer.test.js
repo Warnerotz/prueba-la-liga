@@ -55,4 +55,72 @@ describe("userDetailReducer", () => {
       isLoading: false,
     });
   });
+
+  it("should set isLoading to true when delete user starts", () => {
+    const state = userDetailReducer(INITIAL_STATE, {
+      type: UserDetailTypes.DELETE_USER_START,
+    });
+    expect(state).toEqual({
+      ...INITIAL_STATE,
+      isLoading: true,
+      error: null,
+    });
+  });
+
+  it("should set isLoading a false when delete user success", () => {
+    const state = userDetailReducer(INITIAL_STATE, {
+      type: UserDetailTypes.DELETE_USER_SUCCESS,
+    });
+    expect(state).toEqual({
+      ...INITIAL_STATE,
+      error: null,
+      isLoading: false,
+    });
+  });
+
+  it("should set error when delte user fail", () => {
+    const state = userDetailReducer(INITIAL_STATE, {
+      type: UserDetailTypes.DELETE_USER_FAILURE,
+      payload: ERROR_MOCK,
+    });
+    expect(state).toEqual({
+      ...INITIAL_STATE,
+      error: ERROR_MOCK,
+      isLoading: false,
+    });
+  });
+
+  it("should set isLoading to true when update user starts", () => {
+    const state = userDetailReducer(INITIAL_STATE, {
+      type: UserDetailTypes.UPDATE_USER_START,
+    });
+    expect(state).toEqual({
+      ...INITIAL_STATE,
+      isLoading: true,
+      error: null,
+    });
+  });
+
+  it("should set isLoading a false when update user success", () => {
+    const state = userDetailReducer(INITIAL_STATE, {
+      type: UserDetailTypes.UPDATE_USER_SUCCESS,
+    });
+    expect(state).toEqual({
+      ...INITIAL_STATE,
+      error: null,
+      isLoading: false,
+    });
+  });
+
+  it("should set error when update user fail", () => {
+    const state = userDetailReducer(INITIAL_STATE, {
+      type: UserDetailTypes.UPDATE_USER_FAILURE,
+      payload: ERROR_MOCK,
+    });
+    expect(state).toEqual({
+      ...INITIAL_STATE,
+      error: ERROR_MOCK,
+      isLoading: false,
+    });
+  });
 });
