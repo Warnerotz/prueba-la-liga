@@ -9,7 +9,8 @@ export class API {
   getUsersList = () => this.http.get("users");
   getUserDetail = (userId) => this.http.get(`users/${userId}`);
   updateUser = (userId, userData) =>
-    axios.patch(`users/${userId}`, { ...userData });
+    this.http.patch(`users/${userId}`, { ...userData });
+
   deleteUser = (userId) => axios.delete(`users/${userId}`);
 }
 

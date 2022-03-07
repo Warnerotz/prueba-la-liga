@@ -3,12 +3,25 @@ import { useParams, useNavigate } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import { StyledMessage } from "./UserDetail.styles";
-import { userDataSelect } from "../../store/userDetail/userDetail.selector";
-import { getUserDetail } from "../../store/userDetail/userDetail.actions";
+import {
+  userDataErrorSelect,
+  userDataSelect,
+} from "../../store/userDetail/userDetail.selector";
+import {
+  deleteUser,
+  getUserDetail,
+  updateUser,
+} from "../../store/userDetail/userDetail.actions";
 import UserDetailForm from "../../components/userDetailForm/userDetailForm";
 import ModalDialog from "../../components/modalDialog/modalDialog";
 
-function UserDetail({ getUserDetail, userDetail }) {
+function UserDetail({
+  getUserDetail,
+  userDetail,
+  updateUser,
+  userDetailError,
+  deleteUser,
+}) {
   const { id } = useParams();
   const navigate = useNavigate();
   const defaultUserValues = {
@@ -21,6 +34,7 @@ function UserDetail({ getUserDetail, userDetail }) {
   const [userValues, setUserValues] = useState(defaultUserValues);
   const [shouldOpenConfirmationModal, setShouldOpenConfirmationModal] =
     useState(false);
+  const [shouldOpenDeleteModal, setShouldOpenDeleteModal] = useState(false);
 
   useEffect(() => {
     getUserDetail(id);
@@ -33,10 +47,10 @@ function UserDetail({ getUserDetail, userDetail }) {
     }
   }, [userDetail]);
 
-  const ConfirmationModal = () => (
+  const Modal = ({ message }) => (
     <ModalDialog
-      open={shouldOpenConfirmationModal}
-      modalBody={<StyledMessage>Se ha actualizado con exito</StyledMessage>}
+      open={shouldOpenConfirmationModal || shouldOpenDeleteModal}
+      modalBody={<StyledMessage>{message}</StyledMessage>}
       onConfirm={() => navigate("/")}
       confirmText={"Aceptar"}
     />
@@ -51,15 +65,33 @@ function UserDetail({ getUserDetail, userDetail }) {
     });
   };
 
+  const handleSumitData = () => {
+    updateUser(userValues.id, userValues);
+    if (userDetailError === null && userValues !== null) {
+      setShouldOpenConfirmationModal(true);
+    }
+  };
+
+  const handleDeleteUser = () => {
+    deleteUser(userValues.id);
+    if (userDetailError === null && userValues !== null) {
+      setShouldOpenDeleteModal(true);
+    }
+  };
+
   return !userDetail ? (
     <div>Cargando</div>
   ) : (
     <>
-      {shouldOpenConfirmationModal && <ConfirmationModal />}
+      {shouldOpenConfirmationModal && (
+        <Modal message={"Se ha actualizado con exito"} />
+      )}
+      {shouldOpenDeleteModal && <Modal message={"Se ha Borrado con exito"} />}
       <UserDetailForm
         userDetail={userDetail}
         handleInputChange={handleInputChange}
-        setShouldOpenConfirmationModal={setShouldOpenConfirmationModal}
+        handleSumitData={handleSumitData}
+        handleDeleteUser={handleDeleteUser}
       />
     </>
   );
@@ -67,10 +99,13 @@ function UserDetail({ getUserDetail, userDetail }) {
 
 const mapStateToProps = createStructuredSelector({
   userDetail: userDataSelect,
+  userDetailError: userDataErrorSelect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getUserDetail: (id) => dispatch(getUserDetail(id)),
+  updateUser: (userId, userData) => dispatch(updateUser(userId, userData)),
+  deleteUser: (userId) => dispatch(deleteUser(userId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
