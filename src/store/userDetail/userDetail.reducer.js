@@ -32,6 +32,7 @@ const deleteUserStart = (state) => ({
 const deleteUserSuccess = (state) => ({
   ...state,
   isLoading: false,
+  error: null,
 });
 
 const deleteUserFailure = (state, { payload }) => ({
@@ -48,6 +49,7 @@ const updateUserStart = (state) => ({
 const updateUserSuccess = (state) => ({
   ...state,
   isLoading: false,
+  error: null,
 });
 
 const updateUserFailure = (state, { payload }) => ({

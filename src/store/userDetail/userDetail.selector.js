@@ -11,3 +11,8 @@ export const userDataSelect = createSelector(
   [userDetailSelect],
   (userDetail) => userDetail.userDetail
 );
+
+export const userDataErrorSelect = createSelector(
+  [userDetailSelect],
+  (userDetail) => userDetail.error
+);

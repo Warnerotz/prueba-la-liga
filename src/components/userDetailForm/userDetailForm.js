@@ -1,10 +1,15 @@
 import { TextField, Container, Box, Button } from "@mui/material";
+import { useNavigate } from "react-router";
+import { StyledBox } from "./userDetailForm.styles";
 
 function UserDetailForm({
   userDetail,
   handleInputChange,
-  setShouldOpenConfirmationModal,
+  handleSumitData,
+  handleDeleteUser,
 }) {
+  const navigate = useNavigate();
+
   return (
     <Container maxWidth="xs">
       <h1>datos de usuario</h1>
@@ -36,19 +41,19 @@ function UserDetailForm({
           fullWidth
         />
       </Box>
-      <Box>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => setShouldOpenConfirmationModal(true)}
-        >
+      <StyledBox>
+        <Button variant="contained" color="primary" onClick={handleSumitData}>
           Actualizar
         </Button>
 
-        <Button variant="contained" color="warning">
-          Cancelar
+        <Button variant="contained" color="warning" onClick={handleDeleteUser}>
+          Borrar
         </Button>
-      </Box>
+
+        <Button variant="contained" color="info" onClick={() => navigate("/")}>
+          Volver
+        </Button>
+      </StyledBox>
     </Container>
   );
 }
