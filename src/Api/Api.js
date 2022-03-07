@@ -10,8 +10,14 @@ export class API {
   getUserDetail = (userId) => this.http.get(`users/${userId}`);
   updateUser = (userId, userData) =>
     this.http.patch(`users/${userId}`, { ...userData });
-
   deleteUser = (userId) => axios.delete(`users/${userId}`);
+  authUserToken = (email, password) => {
+    const params = {
+      email,
+      password,
+    };
+    return axios.post("login", { params });
+  };
 }
 
 export default new API();
