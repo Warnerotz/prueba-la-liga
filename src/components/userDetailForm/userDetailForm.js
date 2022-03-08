@@ -1,5 +1,4 @@
 import { TextField, Container, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router";
 import { StyledBox, LogOutBox } from "./userDetailForm.styles";
 
 function UserDetailForm({
@@ -8,9 +7,8 @@ function UserDetailForm({
   handleSumitData,
   handleDeleteUser,
   handleLogOut,
+  handleGoBack,
 }) {
-  const navigate = useNavigate();
-
   return (
     <Container maxWidth="xs">
       <h1>datos de usuario</h1>
@@ -51,7 +49,7 @@ function UserDetailForm({
           Borrar
         </Button>
 
-        <Button variant="contained" color="info" onClick={() => navigate("/")}>
+        <Button variant="contained" color="info" onClick={handleGoBack}>
           Volver
         </Button>
       </StyledBox>
