@@ -1,12 +1,13 @@
 import { TextField, Container, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router";
-import { StyledBox } from "./userDetailForm.styles";
+import { StyledBox, LogOutBox } from "./userDetailForm.styles";
 
 function UserDetailForm({
   userDetail,
   handleInputChange,
   handleSumitData,
   handleDeleteUser,
+  handleLogOut,
 }) {
   const navigate = useNavigate();
 
@@ -42,11 +43,11 @@ function UserDetailForm({
         />
       </Box>
       <StyledBox>
-        <Button variant="contained" color="primary" onClick={handleSumitData}>
+        <Button variant="contained" color="success" onClick={handleSumitData}>
           Actualizar
         </Button>
 
-        <Button variant="contained" color="warning" onClick={handleDeleteUser}>
+        <Button variant="contained" color="error" onClick={handleDeleteUser}>
           Borrar
         </Button>
 
@@ -54,6 +55,12 @@ function UserDetailForm({
           Volver
         </Button>
       </StyledBox>
+
+      <LogOutBox pt={2}>
+        <Button variant="contained" color="warning" onClick={handleLogOut}>
+          Desloguearse
+        </Button>
+      </LogOutBox>
     </Container>
   );
 }

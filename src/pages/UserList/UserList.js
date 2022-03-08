@@ -6,9 +6,10 @@ import {
   usersDataSelect,
 } from "../../store/usersList/usersList.selector";
 import { getUsersList } from "../../store/usersList/usersList.actions";
+import { userLogOut } from "../../store/authUser/authUser.actions";
 import UsersListDataTable from "../../components/usersListDataTable/usersListDataTable";
 
-function UserList({ getUsersList, usersListData }) {
+function UserList({ getUsersList, usersListData, logOut }) {
   useEffect(() => {
     getUsersList();
   }, [getUsersList]);
@@ -16,7 +17,7 @@ function UserList({ getUsersList, usersListData }) {
   return !usersListData ? (
     <div>cargando</div>
   ) : (
-    <UsersListDataTable usersListData={usersListData.data} />
+    <UsersListDataTable usersListData={usersListData.data} logOut={logOut} />
   );
 }
 
@@ -27,6 +28,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
   getUsersList: () => dispatch(getUsersList()),
+  logOut: () => dispatch(userLogOut()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserList);

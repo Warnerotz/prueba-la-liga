@@ -1,4 +1,4 @@
-import GetAuthTokenTypes from "./authUser.types";
+import GetAuthTokenTypes, { UserLogOutTypes } from "./authUser.types";
 import authUserReducer from "./authUser.reducer";
 
 const INITIAL_STATE = {
@@ -48,6 +48,18 @@ describe("get user auth token reducer", () => {
       ...INITIAL_STATE,
       error: ERROR_MOCK,
       isLoading: false,
+    });
+  });
+
+  it("should set auth token to null when log out", () => {
+    const state = authUserReducer(INITIAL_STATE, {
+      type: UserLogOutTypes.USER_LOG_OUT,
+    });
+    expect(state).toEqual({
+      ...INITIAL_STATE,
+      error: null,
+      isLoading: false,
+      authToken: null,
     });
   });
 });

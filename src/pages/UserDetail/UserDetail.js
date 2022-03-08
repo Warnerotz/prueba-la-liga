@@ -14,6 +14,7 @@ import {
 } from "../../store/userDetail/userDetail.actions";
 import UserDetailForm from "../../components/userDetailForm/userDetailForm";
 import ModalDialog from "../../components/modalDialog/modalDialog";
+import { userLogOut } from "../../store/authUser/authUser.actions";
 
 function UserDetail({
   getUserDetail,
@@ -21,6 +22,7 @@ function UserDetail({
   updateUser,
   userDetailError,
   deleteUser,
+  logOut,
 }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -79,6 +81,11 @@ function UserDetail({
     }
   };
 
+  const handleLogOut = () => {
+    logOut();
+    navigate("/login");
+  };
+
   return !userDetail ? (
     <div>Cargando</div>
   ) : (
@@ -92,6 +99,7 @@ function UserDetail({
         handleInputChange={handleInputChange}
         handleSumitData={handleSumitData}
         handleDeleteUser={handleDeleteUser}
+        handleLogOut={handleLogOut}
       />
     </>
   );
@@ -106,6 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
   getUserDetail: (id) => dispatch(getUserDetail(id)),
   updateUser: (userId, userData) => dispatch(updateUser(userId, userData)),
   deleteUser: (userId) => dispatch(deleteUser(userId)),
+  logOut: () => dispatch(userLogOut()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
