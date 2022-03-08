@@ -86,6 +86,10 @@ function UserDetail({
     navigate("/login");
   };
 
+  const handleGoBack = () => {
+    navigate("/");
+  };
+
   return !userDetail ? (
     <div>Cargando</div>
   ) : (
@@ -100,6 +104,7 @@ function UserDetail({
         handleSumitData={handleSumitData}
         handleDeleteUser={handleDeleteUser}
         handleLogOut={handleLogOut}
+        handleGoBack={handleGoBack}
       />
     </>
   );
