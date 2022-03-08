@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper,
   Button,
+  Box,
 } from "@mui/material";
 
 let headers = [
@@ -18,12 +19,17 @@ let headers = [
   { id: "actions", value: "" },
 ];
 
-function UsersListDataTable({ usersListData }) {
+function UsersListDataTable({ usersListData, logOut }) {
   const navigate = useNavigate();
 
   function handleClick(userId) {
     navigate(`/users/${userId}`);
   }
+
+  const handleLogOut = () => {
+    logOut();
+    navigate("/login");
+  };
 
   return (
     <>
@@ -56,6 +62,11 @@ function UsersListDataTable({ usersListData }) {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box pt={2}>
+        <Button variant="contained" color="warning" onClick={handleLogOut}>
+          Desloguearse
+        </Button>
+      </Box>
     </>
   );
 }

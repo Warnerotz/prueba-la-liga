@@ -1,22 +1,14 @@
 import { TextField, Container, Box, Button } from "@mui/material";
-import { useNavigate } from "react-router";
 
-function LoginComponent({
-  userDetail,
-  handleInputChange,
-  handleSumitData,
-  handleDeleteUser,
-}) {
-  const navigate = useNavigate();
-
+function LoginComponent({ handleInputChange, handleSumitData }) {
   return (
     <Container maxWidth="xs">
       <h1>Login</h1>
       <Box mb={2}>
         <TextField
-          label="User"
-          name="user"
-          onChange={() => null}
+          label="Email"
+          name="email"
+          onChange={handleInputChange}
           fullWidth
           autoFocus
         />
@@ -26,17 +18,13 @@ function LoginComponent({
           label="Password"
           name="password"
           type="password"
-          onChange={() => null}
+          onChange={handleInputChange}
           fullWidth
         />
       </Box>
 
       <Box>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => navigate("/")}
-        >
+        <Button variant="contained" color="primary" onClick={handleSumitData}>
           Entrar
         </Button>
       </Box>

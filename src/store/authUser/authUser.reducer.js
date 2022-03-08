@@ -1,4 +1,4 @@
-import GetUserAuthTypes from "./authUser.types";
+import GetUserAuthTypes, { UserLogOutTypes } from "./authUser.types";
 
 const INITIAL_STATE = {
   authToken: null,
@@ -25,10 +25,18 @@ const getUserAuthTokenFailure = (state, { payload }) => ({
   error: payload,
 });
 
+const userLogOutStart = (state) => ({
+  ...state,
+  isLoading: false,
+  authToken: null,
+  error: null,
+});
+
 const reducerMap = {
   [GetUserAuthTypes.GET_AUTH_TOKEN_START]: getUserAuthTokenStart,
   [GetUserAuthTypes.GET_AUTH_TOKEN_SUCCESS]: getUserAuthTokenSuccess,
   [GetUserAuthTypes.GET_AUTH_TOKEN_FAILURE]: getUserAuthTokenFailure,
+  [UserLogOutTypes.USER_LOG_OUT]: userLogOutStart,
 };
 
 const reducer = (state = INITIAL_STATE, action) =>

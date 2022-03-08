@@ -12,11 +12,7 @@ export class API {
     this.http.patch(`users/${userId}`, { ...userData });
   deleteUser = (userId) => axios.delete(`users/${userId}`);
   authUserToken = (email, password) => {
-    const params = {
-      email,
-      password,
-    };
-    return axios.post("login", { params });
+    return axios.post("login", { email, password });
   };
 }
 

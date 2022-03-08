@@ -44,7 +44,7 @@ describe("UserListDataTable", () => {
       `user-list-data-${MOCK_DATA[0].id}`
     );
 
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("button", { name: "Desloguearse" });
 
     expect(button).toBeInTheDocument();
 

@@ -1,4 +1,4 @@
-import GetAuthTokenTypes from "./authUser.types";
+import GetAuthTokenTypes, { UserLogOutTypes } from "./authUser.types";
 import api from "../../api/api";
 
 export const getAuthTokenStart = () => ({
@@ -15,11 +15,20 @@ export const getAuthTokenFailure = (error) => ({
   payload: error,
 });
 
+export const userLogOutStart = () => ({
+  type: UserLogOutTypes.USER_LOG_OUT,
+});
+
+export const userLogOut = () => (dispatch) => {
+  localStorage.removeItem("token");
+  dispatch(userLogOutStart());
+};
+
 export const getAuthToken = (email, password) => async (dispatch) => {
   dispatch(getAuthTokenStart());
   try {
     const { data } = await api.authUserToken(email, password);
-
+    localStorage.setItem("token", data.token);
     dispatch(getAuthTokenSuccess(data.token));
   } catch (error) {
     dispatch(getAuthTokenFailure(error));

@@ -121,6 +121,7 @@ describe("API tests", () => {
 
   it("should return the user token", async () => {
     const EXPECTED_DATA = { token: "asdiuhasdafeuix34bnxs" };
+
     const EXPECTED_URL = "login";
     const MOCKED_EMAIL = "a@a.com";
     const MOCKED_PASSWORD = "asdfgg";
@@ -130,7 +131,8 @@ describe("API tests", () => {
     await api.authUserToken(MOCKED_EMAIL, MOCKED_PASSWORD);
 
     expect(mockedAxios.post).toHaveBeenCalledWith(EXPECTED_URL, {
-      params: { email: MOCKED_EMAIL, password: MOCKED_PASSWORD },
+      email: MOCKED_EMAIL,
+      password: MOCKED_PASSWORD,
     });
   });
 });

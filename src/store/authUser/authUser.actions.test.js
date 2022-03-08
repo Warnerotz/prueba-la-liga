@@ -1,18 +1,20 @@
 import thunk from "redux-thunk";
 import axios from "axios";
 import configureMockStore from "redux-mock-store";
-import GetAuthTokenTypes from "./authUser.types";
+import GetAuthTokenTypes, { UserLogOutTypes } from "./authUser.types";
 import {
   getAuthTokenStart,
   getAuthTokenSuccess,
   getAuthTokenFailure,
   getAuthToken,
+  userLogOutStart,
+  userLogOut,
 } from "./authUser.actions";
 
 jest.mock("axios");
 const mockStore = configureMockStore([thunk]);
 
-const AUTH_TOKEN_MOCK = "ASDAHSXS";
+const AUTH_TOKEN_MOCK = "asdfg";
 const MOCK_ERROR = { message: "mock error message" };
 
 const INITIAL_STATE = {
@@ -76,6 +78,27 @@ describe("get user auth token action", () => {
     });
 
     await store.dispatch(getAuthToken(USER_EMAIL_MOCK, USER_PASSWORD_MOCK));
+
+    const actualActions = await store.getActions();
+
+    expect(actualActions).toEqual(EXPECTED_ACTIONS);
+  });
+});
+
+describe("user log out  action", () => {
+  it("should be created", () => {
+    const action = userLogOutStart();
+    expect(action).toEqual({
+      type: UserLogOutTypes.USER_LOG_OUT,
+    });
+  });
+});
+
+describe("log out user action", () => {
+  it("should dispatch suitable actions on log out", async () => {
+    const EXPECTED_ACTIONS = [{ type: UserLogOutTypes.USER_LOG_OUT }];
+
+    await store.dispatch(userLogOut());
 
     const actualActions = await store.getActions();
 
