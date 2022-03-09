@@ -95,6 +95,24 @@ describe("get user detail action", () => {
 
     expect(actualActions).toEqual(EXPECTED_ACTIONS);
   });
+
+  it("should dispatch suitable actions on get users detail fail", async () => {
+    const EXPECTED_ACTIONS = [
+      { type: UserDetailTypes.GET_USER_DETAIL_START },
+      {
+        type: UserDetailTypes.GET_USER_DETAIL_FAILURE,
+        payload: MOCK_ERROR,
+      },
+    ];
+
+    mockedAxios.get.mockRejectedValueOnce(MOCK_ERROR);
+
+    await store.dispatch(getUserDetail(MOCK_ID));
+
+    const actualActions = await store.getActions();
+
+    expect(actualActions).toEqual(EXPECTED_ACTIONS);
+  });
 });
 
 describe("deleteUserStart  action", () => {
@@ -135,6 +153,24 @@ describe("delete user action", () => {
     ];
 
     mockedAxios.delete.mockResolvedValueOnce();
+
+    await store.dispatch(deleteUser(MOCK_ID));
+
+    const actualActions = await store.getActions();
+
+    expect(actualActions).toEqual(EXPECTED_ACTIONS);
+  });
+
+  it("should dispatch suitable actions on delete user fail", async () => {
+    const EXPECTED_ACTIONS = [
+      { type: UserDetailTypes.DELETE_USER_START },
+      {
+        type: UserDetailTypes.DELETE_USER_FAILURE,
+        payload: MOCK_ERROR,
+      },
+    ];
+
+    mockedAxios.delete.mockRejectedValueOnce(MOCK_ERROR);
 
     await store.dispatch(deleteUser(MOCK_ID));
 
@@ -188,6 +224,30 @@ describe("update user action", () => {
     };
 
     mockedAxios.patch.mockResolvedValueOnce();
+
+    await store.dispatch(updateUser(MOCK_ID, USER_DATA_MOCK));
+
+    const actualActions = await store.getActions();
+
+    expect(actualActions).toEqual(EXPECTED_ACTIONS);
+  });
+
+  it("should dispatch suitable actions on update user fail", async () => {
+    const EXPECTED_ACTIONS = [
+      { type: UserDetailTypes.UPDATE_USER_START },
+      {
+        type: UserDetailTypes.UPDATE_USER_FAILURE,
+        payload: MOCK_ERROR,
+      },
+    ];
+
+    const USER_DATA_MOCK = {
+      first_name: "adrian",
+      last_name: "martinez",
+      email: "ad@hotmail.com",
+    };
+
+    mockedAxios.patch.mockRejectedValueOnce(MOCK_ERROR);
 
     await store.dispatch(updateUser(MOCK_ID, USER_DATA_MOCK));
 

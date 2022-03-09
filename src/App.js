@@ -1,10 +1,7 @@
 import { Suspense, lazy, useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Navigate, useLocation, useNavigate } from "react-router";
-import { createStructuredSelector } from "reselect";
-import { authTokenSelect } from "./store/authUser/authUser.selector";
-import { userDataSelect } from "./store/userDetail/userDetail.selector";
+import { useNavigate } from "react-router";
 
 const UserList = lazy(() => import("./pages/UserList/UserList"));
 const NotFound = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
@@ -39,9 +36,4 @@ function App() {
   );
 }
 
-const mapStateToProps = createStructuredSelector({
-  authtoken: authTokenSelect,
-  userList: userDataSelect,
-});
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);

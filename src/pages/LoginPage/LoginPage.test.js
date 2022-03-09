@@ -61,7 +61,16 @@ describe("LoginPage", () => {
     window.history.pushState({}, "Test page", "/login");
     window.localStorage.removeItem("token");
     render(
-      <Provider store={mockStore(initialState)}>
+      <Provider
+        store={mockStore({
+          ...initialState,
+          authToken: {
+            authToken: null,
+            isLoading: false,
+            error: null,
+          },
+        })}
+      >
         <BrowserRouter>
           <LoginPage />
         </BrowserRouter>
@@ -96,5 +105,54 @@ describe("LoginPage", () => {
     userEvent.click(loginButton);
 
     expect(window.location.pathname).toEqual("/");
+  });
+
+  it("should render the error modal if the login fail", async () => {
+    window.history.pushState({}, "Test page", "/login");
+    render(
+      <Provider
+        store={mockStore({
+          ...initialState,
+          authToken: {
+            authToken: null,
+            isLoading: false,
+            error: { message: "error" },
+          },
+        })}
+      >
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    expect(
+      await screen.findByText("Email o contraseña incorrecta")
+    ).toBeInTheDocument();
+  });
+
+  it("should return to login page after confirm error modal", async () => {
+    window.history.pushState({}, "Test page", "/login");
+    window.localStorage.removeItem("token");
+    render(
+      <Provider
+        store={mockStore({
+          ...initialState,
+          authToken: {
+            authToken: null,
+            isLoading: false,
+            error: { message: "error" },
+          },
+        })}
+      >
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const modalButton = await screen.findByText("Aceptar");
+    userEvent.click(modalButton);
+    expect(window.location.pathname).toBe("/login");
   });
 });

@@ -83,6 +83,27 @@ describe("get user auth token action", () => {
 
     expect(actualActions).toEqual(EXPECTED_ACTIONS);
   });
+
+  it("should dispatch suitable actions on get user auth token fail", async () => {
+    const EXPECTED_ACTIONS = [
+      { type: GetAuthTokenTypes.GET_AUTH_TOKEN_START },
+      {
+        type: GetAuthTokenTypes.GET_AUTH_TOKEN_FAILURE,
+        payload: MOCK_ERROR,
+      },
+    ];
+
+    const USER_EMAIL_MOCK = "a@a.com";
+    const USER_PASSWORD_MOCK = "ASDASDA";
+
+    mockedAxios.post.mockRejectedValueOnce(MOCK_ERROR);
+
+    await store.dispatch(getAuthToken(USER_EMAIL_MOCK, USER_PASSWORD_MOCK));
+
+    const actualActions = await store.getActions();
+
+    expect(actualActions).toEqual(EXPECTED_ACTIONS);
+  });
 });
 
 describe("user log out  action", () => {
