@@ -30,6 +30,17 @@
     "test:coverage": "CI=true REACT_APP_VERSION=$npm_package_version react-scripts test --colors --coverage",
     "prepare": "husky install"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/node_modules/**",
+      "!src/reportWebVitals.js",
+      "!src/index.js",
+      "!src/store/reducers.js",
+      "!src/store/index.js"
+    ]
+  },
+
   "eslintConfig": {
     "extends": [
       "react-app",

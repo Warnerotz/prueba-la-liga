@@ -33,7 +33,7 @@ const initialState = {
 };
 
 const mockStore = configureStore([thunk]);
-test("renders learn react link", () => {
+test("render APP", () => {
   render(
     <Provider store={mockStore(initialState)}>
       <BrowserRouter>
