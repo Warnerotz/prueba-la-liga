@@ -33,12 +33,36 @@ const initialState = {
 };
 
 const mockStore = configureStore([thunk]);
-test("render APP", () => {
-  render(
-    <Provider store={mockStore(initialState)}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  );
+
+describe("App", () => {
+  beforeEach(() => {
+    window.localStorage.setItem("token", "aisodjbasdiu");
+  });
+
+  it("should go to user list page when token exists", () => {
+    window.history.pushState({}, "Test page", "/");
+    render(
+      <Provider store={mockStore(initialState)}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    expect(window.location.pathname).toBe("/");
+  });
+
+  it("should go to login page when does not exist token", () => {
+    window.history.pushState({}, "Test page", "/");
+    window.localStorage.removeItem("token");
+    render(
+      <Provider store={mockStore(initialState)}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    expect(window.location.pathname).toBe("/login");
+  });
 });
