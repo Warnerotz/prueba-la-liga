@@ -6,11 +6,12 @@ import LoginComponent from "../../components/loginComponent/loginComponent";
 import { getAuthToken } from "../../store/authUser/authUser.actions";
 import { authTokenErrorSelect } from "../../store/authUser/authUser.selector";
 
-function LoginPage({ getAuthToken, authError }) {
+function LoginPage({ getAuthToken }) {
   const defaultAuthData = {
     email: "",
     password: "",
   };
+
   const navigate = useNavigate();
   const [authData, setAuthDataValues] = useState(defaultAuthData);
 
@@ -18,7 +19,7 @@ function LoginPage({ getAuthToken, authError }) {
     if (localStorage.getItem("token")) {
       navigate("/", { replace: true });
     }
-  });
+  }, [navigate]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
