@@ -4,15 +4,21 @@ import { BrowserRouter } from "react-router-dom";
 import UsersListDataTable from "./usersListDataTable";
 
 describe("UserListDataTable", () => {
-  const MOCK_DATA = [
-    {
-      id: 1,
-      first_name: "paco",
-      last_name: "martinez",
-      email: "a@a.com",
-      avatar: "",
-    },
-  ];
+  const MOCK_DATA = {
+    page: 1,
+    per_page: 6,
+    total: 12,
+    total_pages: 2,
+    data: [
+      {
+        id: 1,
+        first_name: "paco",
+        last_name: "martinez",
+        email: "a@a.com",
+        avatar: "",
+      },
+    ],
+  };
 
   it("should render headers correctly", () => {
     render(
@@ -42,7 +48,7 @@ describe("UserListDataTable", () => {
     );
 
     const expectedValue = screen.getByTestId(
-      `user-list-data-${MOCK_DATA[0].id}`
+      `user-list-data-${MOCK_DATA.data[0].id}`
     );
 
     const button = screen.getByRole("button", { name: "Desloguearse" });
@@ -80,5 +86,23 @@ describe("UserListDataTable", () => {
     const button = screen.getByRole("button", { name: "Modificar" });
     userEvent.click(button);
     expect(window.location.pathname).toMatch("users/1");
+  });
+
+  it("should dispatch the get users list when you change the page", () => {
+    const getUsersDataList = jest.fn();
+    render(
+      <BrowserRouter>
+        <UsersListDataTable
+          usersListData={MOCK_DATA}
+          getUsersList={getUsersDataList}
+        />
+      </BrowserRouter>
+    );
+
+    const button = screen.getByRole("button", { name: "Go to next page" });
+
+    userEvent.click(button);
+
+    expect(getUsersDataList).toHaveBeenCalled();
   });
 });
