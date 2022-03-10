@@ -1,6 +1,36 @@
-# Getting Started with Create React App
+## Set up
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Requirements
+
+In order to run the application:
+
+- You should need to have installed NodeJS v12+.
+- If you are not using Linux check the "Environment Variables" section in this document.
+
+### Installation
+
+To set up the application in your local machine follow this steps:
+
+- Clone this repository
+- You must be currently viewing `develop` branch code. Then open a terminal inside project's root directory and run `npm install`.
+- When installation process ends successfully, you should be able to run the npm scripts.
+
+## Project description
+
+### Architecture
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) using typescript template. It also implements a [Redux](https://redux.js.org/) store.
+
+UI components are built on top of [Material UI](https://v4.mui.com/). Specific styles are implemented using [Styled Components](https://styled-components.com/), which are written in SASS language.
+
+### Unit/Integration Testing tools
+
+Create React App provides with some useful testing tools.
+
+- [Jest](https://jestjs.io): A javascript testing framework, also the test runner.
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/): Used for testing React components.
+
+This project also includes some helper libraries which were not included in Create React App
 
 ## Available Scripts
 
@@ -14,10 +44,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+### `npm run test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launch all the application test once. The results will be displayed in the console.
+
+### `npm run test:coverage`
+
+Launch all the application test once with the coverage. The results will be displayed in the console.
 
 ### `npm run build`
 
@@ -29,42 +62,14 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Git hooks
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This project also implements some [git hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks). This could be configured easily trough [husky](https://typicode.github.io/husky/#/)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **pre-push**: Before pushing code to any remote branch, it runs the test suite in coverage report mode (using `test:coverage` npm script). If any test does not pass, the push process will stop.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Useful web browser extensions
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Redux DevTools: for debugging application's state changes.
+- React Develop Tools: adds React debugging tools to the Chrome Developer Tools.
+- Testing Playground: DOM testing playground that encourage good testing practices.
