@@ -11,7 +11,9 @@ import {
   Paper,
   Button,
   Box,
+  TablePagination,
 } from "@mui/material";
+import { useState } from "react";
 
 let headers = [
   { id: "first-name", value: "nombre" },
@@ -20,7 +22,7 @@ let headers = [
   { id: "actions", value: "" },
 ];
 
-function UsersListDataTable({ usersListData, logOut }) {
+function UsersListDataTable({ usersListData, logOut, getUsersList }) {
   const navigate = useNavigate();
 
   function handleClick(userId) {
@@ -30,6 +32,10 @@ function UsersListDataTable({ usersListData, logOut }) {
   const handleLogOut = () => {
     logOut();
     navigate("/login");
+  };
+
+  const handleChangePage = (event, newPage) => {
+    getUsersList(newPage + 1);
   };
 
   return (
@@ -46,7 +52,7 @@ function UsersListDataTable({ usersListData, logOut }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {usersListData.map(
+            {usersListData.data.map(
               ({ id, first_name, last_name, email }, index) => (
                 <TableRow key={index} data-testid={`user-list-data-${id}`}>
                   <TableCell>{first_name}</TableCell>
@@ -62,6 +68,14 @@ function UsersListDataTable({ usersListData, logOut }) {
             )}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[-1]}
+          component="div"
+          count={usersListData.total}
+          page={usersListData.page - 1}
+          rowsPerPage={usersListData.per_page}
+          onPageChange={handleChangePage}
+        />
       </TableContainer>
       <Box pt={2}>
         <Button variant="contained" color="warning" onClick={handleLogOut}>

@@ -15,10 +15,10 @@ export const getUsersListFailure = (error) => ({
   payload: error,
 });
 
-export const getUsersList = () => async (dispatch) => {
+export const getUsersList = (page) => async (dispatch) => {
   dispatch(getUsersListStart());
   try {
-    const { data } = await api.getUsersList();
+    const { data } = await api.getUsersList(page);
     dispatch(getUsersListSuccess(data));
   } catch (error) {
     dispatch(getUsersListFailure(error));

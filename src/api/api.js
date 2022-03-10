@@ -6,7 +6,7 @@ export class API {
     this.http.defaults.baseURL = "https://reqres.in/api/";
   }
 
-  getUsersList = () => this.http.get("users");
+  getUsersList = (page = 1) => this.http.get("users", { params: { page } });
   getUserDetail = (userId) => this.http.get(`users/${userId}`);
   updateUser = (userId, userData) =>
     this.http.patch(`users/${userId}`, { ...userData });

@@ -5,9 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import thunk from "redux-thunk";
 import configureStore from "redux-mock-store";
 import axios from "axios";
-
-import api from "../../api/api";
-
 import UserList from "./UserList";
 
 const initialState = {
@@ -15,6 +12,10 @@ const initialState = {
     isLoading: false,
     error: null,
     usersList: {
+      page: 1,
+      per_page: 6,
+      total: 12,
+      total_pages: 2,
       data: [
         {
           id: 1,

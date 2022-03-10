@@ -45,8 +45,9 @@ function UserList({ getUsersList, usersListData, logOut, usersListError }) {
       )}
       {!usersListError && (
         <UsersListDataTable
-          usersListData={usersListData.data}
+          usersListData={usersListData}
           logOut={logOut}
+          getUsersList={getUsersList}
         />
       )}
     </>
@@ -59,7 +60,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getUsersList: () => dispatch(getUsersList()),
+  getUsersList: (pageNumber) => dispatch(getUsersList(pageNumber)),
   logOut: () => dispatch(userLogOut()),
 });
 
